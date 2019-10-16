@@ -295,8 +295,10 @@ describe ConferenceRegistrationsController, type: :controller do
 
       context 'updates successfully' do
         before do
-          patch :update, params: { registration:  attributes_for(:registration),
-                                   conference_id: conference.short_title }
+          patch :update, params: {
+            registration:  attributes_for(:registration, volunteer: true),
+            conference_id: conference.short_title
+          }
         end
 
         it 'redirects to registration show path' do
@@ -315,8 +317,10 @@ describe ConferenceRegistrationsController, type: :controller do
       context 'update fails' do
         before do
           allow_any_instance_of(Registration).to receive(:update_attributes).and_return(false)
-          patch :update, params: { registration:  attributes_for(:registration),
-                                   conference_id: conference.short_title }
+          patch :update, params: {
+            registration:  attributes_for(:registration, volunteer: true),
+            conference_id: conference.short_title
+          }
         end
 
         it 'renders edit template' do
